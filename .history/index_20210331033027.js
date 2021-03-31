@@ -18,8 +18,8 @@ const client = new MongoClient(uri, {
 
 
 client.connect((err) => {
-  const eventCollection = client.db("tshirtShop").collection("products");
-  const orderCollection = client.db("tshirtShop").collection("order");
+    const eventCollection = client.db("tshirtShop").collection("products");
+    console.log('database connected')
 
   app.get("/event", (req, res) => {
     eventCollection.find().toArray((err, items) => {
@@ -35,36 +35,8 @@ client.connect((err) => {
   });
 
     app.get('/product/:id', (req, res) => {
-        eventCollection.find({ _id: ObjectId(req.params.id) })
-            .toArray((err, document) => {
-            res.send(document[0])
-        })
+        console.log(req.params.id)
     })
-
-  app.post('/order', (req, res) => {
-    console.log(req.body)
-    orderCollection.insertOne(req.body)
-      .then(result => {
-        console.log(result);
-        res.send(result.insertedCount > 0);
-    })
-  })
-
-  app.get('/orderDetail', (req, res) => {
-    const orderInfo= req.query.email;
-    orderCollection.find({ email: orderInfo })
-      .toArray((err, document) => {
-      res.send(document)
-    })
-  })
-  app.delete("/delete/:id", (req, res) => {
-    console.log(req.params.id)
-    eventCollection
-      .deleteOne({ _id: ObjectId(req.params.id) })
-      .then((result) => {
-        res.send(result.deletedCount > 0);
-      });
-  });
 
 });
 

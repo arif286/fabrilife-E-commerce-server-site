@@ -58,7 +58,6 @@ client.connect((err) => {
     })
   })
   app.delete("/delete/:id", (req, res) => {
-    console.log(req.params.id)
     eventCollection
       .deleteOne({ _id: ObjectId(req.params.id) })
       .then((result) => {

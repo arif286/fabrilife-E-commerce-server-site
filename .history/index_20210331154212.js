@@ -20,6 +20,7 @@ const client = new MongoClient(uri, {
 client.connect((err) => {
   const eventCollection = client.db("tshirtShop").collection("products");
   const orderCollection = client.db("tshirtShop").collection("order");
+    console.log('database connected')
 
   app.get("/event", (req, res) => {
     eventCollection.find().toArray((err, items) => {
@@ -49,22 +50,6 @@ client.connect((err) => {
         res.send(result.insertedCount > 0);
     })
   })
-
-  app.get('/orderDetail', (req, res) => {
-    const orderInfo= req.query.email;
-    orderCollection.find({ email: orderInfo })
-      .toArray((err, document) => {
-      res.send(document)
-    })
-  })
-  app.delete("/delete/:id", (req, res) => {
-    console.log(req.params.id)
-    eventCollection
-      .deleteOne({ _id: ObjectId(req.params.id) })
-      .then((result) => {
-        res.send(result.deletedCount > 0);
-      });
-  });
 
 });
 

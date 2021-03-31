@@ -51,20 +51,8 @@ client.connect((err) => {
   })
 
   app.get('/orderDetail', (req, res) => {
-    const orderInfo= req.query.email;
-    orderCollection.find({ email: orderInfo })
-      .toArray((err, document) => {
-      res.send(document)
-    })
+    console.log(req.query.email)
   })
-  app.delete("/delete/:id", (req, res) => {
-    console.log(req.params.id)
-    eventCollection
-      .deleteOne({ _id: ObjectId(req.params.id) })
-      .then((result) => {
-        res.send(result.deletedCount > 0);
-      });
-  });
 
 });
 
