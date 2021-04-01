@@ -62,7 +62,8 @@ client.connect((err) => {
     eventCollection
       .deleteOne({ _id: ObjectId(req.params.id) })
       .then((result) => {
-        res.redirect('/admin')
+        res.send(result)
+        console.log(result)
       });
   });
 
